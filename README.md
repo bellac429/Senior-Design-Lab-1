@@ -7,7 +7,8 @@ Digital Thermometer Project
 * Schematic?
 
 ## Needed Supplies
-* LCD form lab kits
+* LCD
+* 2 Buttons
 * Breadboard and wires
 * Tape
 * Stuff to make a thermometer box (3D print?)
