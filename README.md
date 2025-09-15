@@ -3,6 +3,7 @@ Digital Thermometer Project
 
 ## Questions for Professors
 * After 300 seconds should the temp graph show 301+ history or delete oldest temp history?
+* Does the 3rd box need to be waterproof?
 
 ## TO DO
 * Make gant chart
