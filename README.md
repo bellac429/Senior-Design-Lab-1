@@ -7,9 +7,9 @@ Digital Thermometer Project
 * Schematic?
 
 ## Needed Supplies
-* LCD
-* 2 Buttons
-* Breadboard and wires
-* Tape
+* LCD - Emma
+* 2 Buttons - Emma
+* Breadboard and wires - Bella
+* Tape - probably Bella
 * Stuff to make a thermometer box (3D print?)
   
