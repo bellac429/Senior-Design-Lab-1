@@ -18,8 +18,8 @@ Digital Thermometer Project
 
 
 
-
-
+---
+---
 ---
 
 ### **1. Understand the Requirements (First Week)**
