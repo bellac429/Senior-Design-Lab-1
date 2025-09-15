@@ -5,3 +5,8 @@ Digital Thermometer Project
 * Make gant chart
 * Read requirements and split up tasks
 * Schematic?
+
+## Needed Supplies
+* LCD form lab kits
+* Stuff to make a thermometer box (3D print?)
+  
