@@ -62,23 +62,3 @@ Here’s one effective split for a 4-person team:
    * Lead formal documentation and design report writing.
 
 
-### **3. Project Timeline**
-
-* **Week 1–2**: Research parts, finalize design, assign tasks.
-* **Week 3–4**:
-
-  * Hardware: breadboard prototype of sensors + microcontroller.
-  * Embedded: basic code for reading sensor + driving display.
-  * Web: skeleton app that can show test data.
-* **Week 5–6**:
-
-  * Integrate microcontroller with PC/web.
-  * Add graphing & button control.
-  * Test robustness (unplugging sensors, drop tests).
-* **Week 7–8**:
-
-  * Implement text/email alerts.
-  * Finalize enclosure design.
-  * Documentation draft.
-* **Final Week**: Debug, polish, practice presentation.
-
