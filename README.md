@@ -2,5 +2,5 @@
 Digital Thermometer Project
 
 ## TO DO
-Make gant chart
-Schematic?
+* Make gant chart
+* Schematic?
