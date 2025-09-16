@@ -3,7 +3,7 @@ Digital Thermometer Project
 
 ## Options for Project Management
 * Trello
-* Jira
+* Jira: https://isabellapconrad.atlassian.net/jira/software/projects/KAN/list?sortBy=status&direction=ASC&atlOrigin=eyJpIjoiNDIyOTAyOWRiMGZkNDhjZjkyNzUwMDBiN2NkOTU3NjQiLCJwIjoiaiJ9
 * Notion
 * Spreadsheet (Gant chart)
 
