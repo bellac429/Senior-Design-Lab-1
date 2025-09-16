@@ -18,49 +18,39 @@ Digital Thermometer Project
 * Stuff to make a thermometer box (3D print?)
 
 
-
 ---
 ---
----
-
-### **1. Understand the Requirements (First Week)**
-
-* Each team member should **read the lab document carefully** and flag unclear points (mechanical durability, web features, sensors, etc.).
-* Schedule a team meeting with the TA or professor to **clarify ambiguities early**.
-* Agree on the **minimum viable prototype (MVP)**:
-
-  * Sensors read and display data locally.
-  * Basic web interface shows temperature.
-
----
-
-### **2. Divide Roles & Responsibilities**
-
-Here’s one effective split for a 4-person team:
-
-1. **Hardware Lead**
-
-   * Select thermometer sensors and microcontroller.
-   * Build/test sensor connections, buttons, power switch, connectors.
-   * Ensure drop-test and unplug-replug robustness.
-
-2. **Embedded Software Lead**
-
-   * Program microcontroller to read sensors and drive local display.
-   * Implement button functionality and error handling.
-   * Provide clean data output for the web interface.
-
-3. **Web/Interface Lead**
-
-   * Build the PC/web app for real-time display, graphing, and unit conversion (C/F).
-   * Implement notifications (text/email alerts).
-   * Ensure error conditions show properly in the UI.
-
-4. **Integration & Testing Lead (also Documentation)**
-
-   * Make sure all subsystems integrate smoothly.
-   * Run tests for timing (20 ms response, 1 Hz updates), range, robustness.
-   * Lead formal documentation and design report writing.
 
 
-45,47,07
+## **Week 1: Planning + Rapid Prototyping**
+
+🔹 **Goals:** Parts chosen, basic prototype working.
+
+* **All (Day 1):**
+
+  * Read requirements carefully.
+  * Break down unclear specs; assign someone to ask TA/professor.
+  * Decide on hardware (sensors, microcontroller, display, connectors).
+  * Set up Git repo/Google Drive/Notion for code + docs.
+
+* **Hardware Lead:**
+
+  * Order/gather parts (sensors, display, connectors, enclosure).
+  * Build rough breadboard prototype with sensors + power switch.
+
+* **Embedded Lead:**
+
+  * Write simple code to read a single sensor and print temperature.
+
+* **Web Lead:**
+
+  * Set up skeleton app (basic page with placeholder temperature, graph layout).
+
+* **Integration/Testing Lead:**
+
+  * Start lab notebook and project documentation.
+  * Define **test plan** (sensor unplug, drop test, button timing, etc.).
+
+
+
+Locker 2040 Passcode: 45,47,07
