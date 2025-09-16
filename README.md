@@ -1,6 +1,12 @@
 # Senior-Design-Lab-1
 Digital Thermometer Project 
 
+## Options for Project Management
+* Trello
+* Jira
+* Notion
+* Spreadsheet (Gant chart)
+
 ## Questions for Professors
 * After 300 seconds should the temp graph show 301+ history or delete oldest temp history?
 * Does the 3rd box need to be waterproof?
