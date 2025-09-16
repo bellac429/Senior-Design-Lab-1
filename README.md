@@ -1,5 +1,5 @@
 # Senior-Design-Lab-1
-Digital Thermometer Project
+Digital Thermometer Project 
 
 ## Questions for Professors
 * After 300 seconds should the temp graph show 301+ history or delete oldest temp history?
@@ -63,3 +63,4 @@ Here’s one effective split for a 4-person team:
    * Lead formal documentation and design report writing.
 
 
+45,47,07
