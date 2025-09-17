@@ -9,9 +9,7 @@ https://www.notion.so/Lab-1-271b8b796d0180eab1d4e2178e876c93
 * Does the 3rd box need to be waterproof?
 
 ## TO DO
-* Make gant chart
-* Read requirements and split up tasks
-* Schematic?
+* Look at notion  tasks
 
 ## Needed Supplies
 * LCD - Emma
