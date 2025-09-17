@@ -1,11 +1,8 @@
 # Senior-Design-Lab-1
 Digital Thermometer Project 
 
-## Options for Project Management
-* Trello
-* Jira: https://isabellapconrad.atlassian.net/jira/software/projects/KAN/list?sortBy=status&direction=ASC&atlOrigin=eyJpIjoiNDIyOTAyOWRiMGZkNDhjZjkyNzUwMDBiN2NkOTU3NjQiLCJwIjoiaiJ9
-* Notion
-* Spreadsheet (Gant chart)
+## Project Management
+https://www.notion.so/Lab-1-271b8b796d0180eab1d4e2178e876c93
 
 ## Questions for Professors
 * After 300 seconds should the temp graph show 301+ history or delete oldest temp history?
