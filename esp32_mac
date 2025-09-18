@@ -2,6 +2,7 @@
 #include <esp_wifi.h>
 
 // MAC Address: 6c:c8:40:86:eb:d4
+// IP Address: 172.23.17.235
 
 void readMacAddress(){
   uint8_t baseMac[6];
