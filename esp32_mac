@@ -1,6 +1,8 @@
 #include <WiFi.h>
 #include <esp_wifi.h>
 
+// MAC Address: 6c:c8:40:86:eb:d4
+
 void readMacAddress(){
   uint8_t baseMac[6];
   esp_err_t ret = esp_wifi_get_mac(WIFI_IF_STA, baseMac);
