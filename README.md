@@ -5,8 +5,8 @@ Digital Thermometer Project
 https://www.notion.so/Lab-1-271b8b796d0180eab1d4e2178e876c93
 
 ## Questions for Professors
-* After 300 seconds should the temp graph show 301+ history or delete oldest temp history?
-* Does the 3rd box need to be waterproof?
+* After 300 seconds should the temp graph show 301+ history or delete oldest temp history? ANSW: Just need to show 300 seconds of data, it is up to our discretion whether to store it or throw it away
+* Does the 3rd box need to be waterproof? ANSW: No, it does not
 
 ## TO DO
 * Look at notion  tasks
