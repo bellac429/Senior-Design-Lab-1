@@ -21,11 +21,10 @@ https://www.notion.so/Lab-1-271b8b796d0180eab1d4e2178e876c93
 ---
 Locker 240 Passcode: 45,47,07
 ---
----
+
 
 ---
-Seth's Locker (stinky)
-Locker 239 Passcode: 34,40,36
+Seth's (stinky) Locker 239 Passcode: 34,40,36
 ---
 ---
 
