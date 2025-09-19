@@ -19,10 +19,15 @@ https://www.notion.so/Lab-1-271b8b796d0180eab1d4e2178e876c93
 * Stuff to make a thermometer box (3D print?)
   
 ---
-Locker 2040 Passcode: 45,47,07
+Locker 240 Passcode: 45,47,07
 ---
 ---
 
+---
+Seth's Locker (stinky)
+Locker 239 Passcode: 34,40,36
+---
+---
 
 ## **Week 1: First Prototype
 
