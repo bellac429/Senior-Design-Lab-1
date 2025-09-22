@@ -1,0 +1,2 @@
+ESP32: 2.2 in x 1 in
+LCD: 3.25 in x 1.5 in
