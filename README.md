@@ -63,3 +63,5 @@ Seth's (stinky) Locker 239 Passcode: 34,40,36
 ## Resources and references links:
   * Small red switch reference
   https://www.learningaboutelectronics.com/Articles/What-is-a-single-pole-double-throw-switch-SPDT
+
+  * Power converter https://www.youtube.com/watch?v=1er6XQ-BMp4
