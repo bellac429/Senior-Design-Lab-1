@@ -56,3 +56,10 @@ Seth's (stinky) Locker 239 Passcode: 34,40,36
 
   * Start lab notebook and project documentation.
   * Define **test plan** (sensor unplug, drop test, button timing, etc.).
+
+
+
+ 
+## Resources and references links:
+  * Small red switch reference
+  https://www.learningaboutelectronics.com/Articles/What-is-a-single-pole-double-throw-switch-SPDT
