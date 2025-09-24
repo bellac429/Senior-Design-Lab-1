@@ -1,5 +1,10 @@
 // loads the required wifi library
 #include <WiFi.h>
+// loads the required temp sensor libraries
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
+// IP Address: 172.23.17.235
 
 // grabs the required ssid and password to connect the esp32 to wifi.
 // the esp32 was connected to university wifi by registering it through
@@ -26,13 +31,38 @@ const int output19 = 19;
 // Current time
 unsigned long currentTime = millis();
 // Previous time
+
 unsigned long previousTime = 0; 
 // Define timeout time in milliseconds (example: 2000ms = 2s)
 const long timeoutTime = 1000;
 
+// GPIO where the DS18B20 (temp sensor) is connected to
+const int oneWireBus = 4;     
+
+// Setup a oneWire instance to communicate with any OneWire devices
+OneWire oneWire(oneWireBus);
+
+// Pass our oneWire reference to Dallas Temperature sensor 
+DallasTemperature sensors(&oneWire);
+
+// Number of temperature devices
+int numberOfDevices = 2;
+
+// We'll use this variable to store a found device address
+DeviceAddress tempDeviceAddress;
+
+// An array for storing the farehnheir temps
+float tempsF[2];
+
+// An array for storing th celcius temps
+float tempsC[2];
+
 // this only runs once when the esp boots
 void setup() {
+  // start the serial monitor
   Serial.begin(115200);
+  // Start the DS18B20 (temp) sensor
+  sensors.begin();
   // Set the GPIOs as outputs
   pinMode(output18, OUTPUT);
   pinMode(output19, OUTPUT);
@@ -60,6 +90,36 @@ void setup() {
 void loop(){
   WiFiClient client = server.available();   // Listen for incoming clients, esp is always listening
 
+  sensors.requestTemperatures(); // Send the command to get temperatures
+
+  // set the temperature to their respective variables
+  float temperatureC = sensors.getTempCByIndex(0); // get the temp in celcius
+  float temperatureF = sensors.getTempFByIndex(0); // get the temp in farenheit
+
+  // print to the serial monitor
+  Serial.print(temperatureC);
+  Serial.println("ºC");
+  Serial.print(temperatureF);
+  Serial.println("ºF");
+
+  for(int i=0; i < numberOfDevices; i++){
+    // Search the wire for address
+    if(sensors.getAddress(tempDeviceAddress, i)){
+      // Output the device ID
+      //Serial.print("Temperature for device: ");
+      //Serial.println(i,DEC);
+      // Print the data
+      float tempC = sensors.getTempC(tempDeviceAddress);
+      tempsC[i] = tempC; // stores the celcius temperature into the array
+      //Serial.print("Temp C: ");
+      //Serial.print(tempC);
+      float tempF = DallasTemperature::toFahrenheit(tempC);
+      tempsF[i] = tempF; // stores the farenheit temperature into the array
+      //Serial.print(" Temp F: ");
+      //Serial.println(DallasTemperature::toFahrenheit(tempC)); // Converts tempC to Fahrenheit
+    }
+  }
+
   if (client) {                             // If a new client connects,
     currentTime = millis();
     previousTime = currentTime;
@@ -84,12 +144,14 @@ void loop(){
             client.println("Connection: close");
             client.println();
             
+
+
             // checks which button is pressed in the webpage
             // turns the GPIOs on and off
             if (header.indexOf("GET /18/on") >= 0) {
               Serial.println("GPIO 18 on"); // prints message onto serial monitor
               output18State = "on"; // changes the output state to on for the html
-              digitalWrite(output18, HIGH); // turns the LED on
+              digitalWrite(output18, HIGH); // turns the button on
             } 
             else if (header.indexOf("GET /18/off") >= 0) {
               Serial.println("GPIO 18 off");
@@ -124,7 +186,7 @@ void loop(){
             
             // Display current state, and ON/OFF buttons for GPIO 18
             // aka the thermometer 1  
-            client.println("<p>Probe 1 " + output18State + "</p>");
+            client.println("<p>Probe 1 " + String(tempsF[0], 2) + "</p>");
             // If the thermometer 1 is off, it displays the ON button       
             if (output18State=="off") {
               client.println("<p><a href=\"/18/on\"><button class=\"button\">ON</button></a></p>");
@@ -136,7 +198,7 @@ void loop(){
                
             // Display current state, and ON/OFF buttons for GPIO 19  
             // aka the thermometer 2
-            client.println("<p>Probe 2 " + output19State + "</p>");
+            client.println("<p>Probe 2 " + String(tempsF[1], 2)/*tempsF[1]*/ + "</p>");
             // If the thermometer 2 is off, it displays the ON button       
             if (output19State=="off") {
               client.println("<p><a href=\"/19/on\"><button class=\"button\">ON</button></a></p>");
