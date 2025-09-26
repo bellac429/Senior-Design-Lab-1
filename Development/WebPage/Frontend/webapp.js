@@ -100,24 +100,35 @@ function toggle18() {
 // Turn GPIO 19 ON or OFF
 // ===============================
 function toggle19() {
-    var action;
+    // Flip our memory of its state
+    gpio19On = !gpio19On;
+
+    // Update button text
     if (gpio19On) {
-        action = "off";
+        btn19OFFON.innerHTML = "OFF";
     } else {
-        action = "on";
+        btn19OFFON.innerHTML = "ON";
     }
+    
+// ============================== ARDUINO BACKEND CODE =======================
+//     var action;
+//     if (gpio19On) {
+//         action = "off";
+//     } else {
+//         action = "on";
+//     }
 
-    fetch(ESP32_IP + "/19/" + action)
-        .then(function() {
-            console.log("GPIO 19 is now " + action);
-            gpio19On = !gpio19On;
+//     fetch(ESP32_IP + "/19/" + action)
+//         .then(function() {
+//             console.log("GPIO 19 is now " + action);
+//             gpio19On = !gpio19On;
 
-            if (gpio19On) {
-                btn19OFFON.innerHTML = "OFF";
-            } else {
-                btn19OFFON.innerHTML = "ON";
-            }
-        });
+//             if (gpio19On) {
+//                 btn19OFFON.innerHTML = "OFF";
+//             } else {
+//                 btn19OFFON.innerHTML = "ON";
+//             }
+//         });
 }
 
 // ===============================
