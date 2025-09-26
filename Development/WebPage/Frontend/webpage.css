@@ -1,0 +1,45 @@
+/* This is the CSS file that controls how things look */
+
+/* General page style */
+body {
+    font-family: Arial, sans-serif; /* use a simple font */
+    text-align: center; /* center all text */
+    margin: 0;  /* remove default spacing around page */
+    padding: 0;
+}
+
+/* Main title at top */
+h1 {
+    margin: 20px 0;
+}
+
+/* Each probe (box around it) */
+.probe-container {
+    display: inline-block; /* so Probe 1 and 2 sit side by side */
+    width: 40%; /* take up about half the page */
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid black; /* simple black border */
+    border-radius: 8px; /* rounded corners */
+}
+
+/* The temperature text */
+.temperature {
+    font-size: 30px;
+    margin: 15px 0;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 5px;
+    cursor: pointer; /* mouse becomes a hand */
+}
+
+/* Placeholder for graph */
+.graph-placeholder {
+    margin-top: 30px;
+    border: 2px dashed gray;
+    padding: 20px;
+}
