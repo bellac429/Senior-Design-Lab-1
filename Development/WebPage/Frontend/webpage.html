@@ -1,0 +1,46 @@
+<!-- This is the main HTML file -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ESP32 Temperature Monitor</title>
+
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="webapp.css">
+</head>
+<body>
+
+<!-- Title at the top of the page -->
+<h1>Temperature Monitor</h1>
+
+<!-- Box for Probe 1 -->
+<div class="probe-container">
+    <h2>Probe 1</h2>
+    <!-- This is where Probe 1 temperature will show -->
+    <div id="probe1" class="temperature">-- °F</div>
+    <!-- Button to control GPIO 18 -->
+    <button id="btn18OFFON">ON</button>
+    <!-- Button to control GPIO 19 -->
+    <button id="btn18Temp">F</button>
+</div>
+
+<!-- Box for Probe 2 -->
+<div class="probe-container">
+    <h2>Probe 2</h2>
+    <!-- This is where Probe 2 temperature will show -->
+    <div id="probe2" class="temperature">-- °F</div>
+    <!-- Button to control GPIO 19 -->
+    <button id="btn19OFFON">ON</button>
+    <!-- Button to control GPIO 19 -->
+    <button id="btn19Temp">F</button>
+</div>
+
+<!-- Graph area (not very fancy for now) -->
+<div class="graph-placeholder">
+    <p>Graph will go here (future upgrade)</p>
+</div>
+
+<!-- Link to the JavaScript file -->
+<script src="webapp.js"></script>
+</body>
+</html>
