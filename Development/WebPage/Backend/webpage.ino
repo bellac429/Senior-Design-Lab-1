@@ -9,8 +9,8 @@
 #include <DallasTemperature.h>
 
 // ----------------- WiFi Setup -----------------
-const char* ssid = "UI-DeviceNet";      // WiFi network name
-const char* password = "UI-DeviceNet";  // WiFi password
+const char* ssid = "Adrian's IPhone";      // WiFi network name
+const char* password = "Alvarez2006";  // WiFi password
 
 WiFiServer server(80); // Start a web server on port 80
 
