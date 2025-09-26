@@ -62,27 +62,37 @@ function updateData() {
 // Turn GPIO 18 ON or OFF
 // ===============================
 function toggle18() {
-    var action;
+    // Flip our memory of its state
+    gpio18On = !gpio18On;
+
+    // Update button text
     if (gpio18On) {
-        action = "off";   // if it was on, turn it off
+        btn18OFFON.innerHTML = "OFF";
     } else {
-        action = "on";    // if it was off, turn it on
+        btn18OFFON.innerHTML = "ON";
     }
 
-    fetch(ESP32_IP + "/18/" + action)
-        .then(function() {
-            console.log("GPIO 18 is now " + action);
+    // ============================== ARDUINO BACKEND CODE =======================
+    // var action;
+    // if (gpio18On) {
+    //     action = "off";   // if it was on, turn it off
+    // } else {
+    //     action = "on";    // if it was off, turn it on
+    // }
+    // fetch(ESP32_IP + "/18/" + action)
+    //     .then(function() {
+    //         console.log("GPIO 18 is now " + action);
 
-            // Flip our memory of its state
-            gpio18On = !gpio18On;
+    //         // Flip our memory of its state
+    //         gpio18On = !gpio18On;
 
-            // Update button text
-            if (gpio18On) {
-                btn18OFFON.innerHTML = "OFF";
-            } else {
-                btn18OFFON.innerHTML = "ON";
-            }
-        });
+    //         // Update button text
+    //         if (gpio18On) {
+    //             btn18OFFON.innerHTML = "OFF";
+    //         } else {
+    //             btn18OFFON.innerHTML = "ON";
+    //         }
+    //     });
 }
 
 // ===============================
