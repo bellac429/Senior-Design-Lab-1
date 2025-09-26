@@ -109,7 +109,7 @@ function toggle19() {
     } else {
         btn19OFFON.innerHTML = "ON";
     }
-    
+
 // ============================== ARDUINO BACKEND CODE =======================
 //     var action;
 //     if (gpio19On) {
@@ -136,22 +136,24 @@ function toggle19() {
 // Switch between F and C for probe 1
 // ===============================
 function toggle18Temp() {
-    show18C = !show18C; // flip true/false
-
-    if (show18C) {
-        btn18Temp.innerHTML = "C";
-    } else {
+    // Check the button text and set show18C accordingly
+    if (btn18Temp.innerHTML === "C") {
+        show18C = false; // If currently "C", switch to "F"
         btn18Temp.innerHTML = "F";
+    } else {
+        show18C = true; // If currently "F", switch to "C"
+        btn18Temp.innerHTML = "C";
     }
 
-    // Update display right away using last data
-    if (lastData != null) {
-        if (show18C) {
-            probe1El.innerHTML = lastData.probe1.C.toFixed(2) + " °C";
-        } else {
-            probe1El.innerHTML = lastData.probe1.F.toFixed(2) + " °F";
-        }
-    }
+    // ============================= ARDUINO BACKEND CODE =======================
+    // // Update display right away using last data
+    // if (lastData != null) {
+    //     if (show18C) {
+    //         probe1El.innerHTML = lastData.probe1.C.toFixed(2) + " °C";
+    //     } else {
+    //         probe1El.innerHTML = lastData.probe1.F.toFixed(2) + " °F";
+    //     }
+    // }
 }
 
 // ===============================
@@ -159,21 +161,23 @@ function toggle18Temp() {
 // Switch between F and C for probe 2
 // ===============================
 function toggle19Temp() {
-    show19C = !show19C;
-
-    if (show19C) {
-        btn19Temp.innerHTML = "C";
-    } else {
+    // Check the button text and set show18C accordingly
+    if (btn19Temp.innerHTML === "C") {
+        show19C = false; // If currently "C", switch to "F"
         btn19Temp.innerHTML = "F";
+    } else {
+        show19C = true; // If currently "F", switch to "C"
+        btn19Temp.innerHTML = "C";
     }
 
-    if (lastData != null) {
-        if (show19C) {
-            probe2El.innerHTML = lastData.probe2.C.toFixed(2) + " °C";
-        } else {
-            probe2El.innerHTML = lastData.probe2.F.toFixed(2) + " °F";
-        }
-    }
+    // ============================= ARDUINO BACKEND CODE =======================
+    // if (lastData != null) {
+    //     if (show19C) {
+    //         probe2El.innerHTML = lastData.probe2.C.toFixed(2) + " °C";
+    //     } else {
+    //         probe2El.innerHTML = lastData.probe2.F.toFixed(2) + " °F";
+    //     }
+    // }
 }
 
 // ===============================
