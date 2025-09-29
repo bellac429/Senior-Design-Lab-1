@@ -120,16 +120,16 @@ void loop() {
     }
 
     // Serial output for debugging
-    Serial.print("Sensor 1: ");
-    Serial.print(sensor1State ? String(sensors.getTempCByIndex(0)) : "OFF");
-    Serial.print(" | Sensor 2: ");
-    Serial.println(sensor2State ? String(sensors.getTempCByIndex(1)) : "OFF");
+    // Serial.print("Sensor 1: ");
+    // Serial.print(sensor1State ? String(sensors.getTempCByIndex(0)) : "OFF");
+    // Serial.print(" | Sensor 2: ");
+    // Serial.println(sensor2State ? String(sensors.getTempCByIndex(1)) : "OFF");
   } else {
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Need 2 sensors!");
-    Serial.println("Less than 2 temperature sensors detected.");
+    //Serial.println("Less than 2 temperature sensors detected.");
   }
 
-  delay(50); // Update 
+  delay(20); // Update every 20 milliseconds
 }
