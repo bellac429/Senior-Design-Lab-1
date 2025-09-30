@@ -55,17 +55,6 @@ void setup() {
 }
 
 void loop() {
-
-  // Read button states (LOW = pressed, HIGH = released)
-//   bool button1Pressed = (digitalRead(BUTTON1) == LOW);
-//   bool button2Pressed = (digitalRead(BUTTON2) == LOW);
-
-//   if (button1Pressed) {
-//     Serial.println("Button 1 is PRESSED");
-//   } else {
-//     Serial.println("Button 1 is RELEASED");
-//   }
-///////////////////////////////// FIX THIS BUTTON LOGIC ///////////////////////////////////////
   // Read button states (LOW = pressed, HIGH = released)
   bool currentButton1State = digitalRead(BUTTON1);
   bool currentButton2State = digitalRead(BUTTON2);
@@ -85,9 +74,6 @@ void loop() {
   // Update last button states
   lastButton1State = currentButton1State;
   lastButton2State = currentButton2State;
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////
 
   // Update temperature display
   sensors.requestTemperatures();
