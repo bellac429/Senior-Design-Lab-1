@@ -52,6 +52,13 @@ void setup() {
   lcd.print(numberOfDevices);
   delay(2000);
   lcd.clear();
+
+  // Sensor 1 display
+  lcd.setCursor(0, 0);
+  lcd.print("S1:");
+  // Sensor 2 display
+  lcd.setCursor(0, 1);
+  lcd.print("S2:");
 }
 
 void loop() {
@@ -75,10 +82,8 @@ void loop() {
 
   // Update temperature display
   sensors.requestTemperatures();
-  
-  // Sensor 1 display
-  lcd.setCursor(0, 0);
-  lcd.print("S1:");
+
+  lcd.setCursor(4, 0); // Position for Sensor 1 reading
   if (sensor1State) {
     float tempC1 = sensors.getTempCByIndex(0);
     if (tempC1 == DEVICE_DISCONNECTED_C) {
@@ -95,9 +100,7 @@ void loop() {
     lcd.print("OFF    ");
   }
 
-  // Sensor 2 display
-  lcd.setCursor(0, 1);
-  lcd.print("S2:");
+  lcd.setCursor(4, 1); // Position for Sensor 2 reading
   if (sensor2State) {
     float tempC2 = sensors.getTempCByIndex(1);
     if (tempC2 == DEVICE_DISCONNECTED_C) {
@@ -120,6 +123,5 @@ void loop() {
   // Serial.print(" | Sensor 2: ");
   // Serial.println(sensor2State ? String(sensors.getTempCByIndex(1)) : "OFF");
 
-
-  delay(20); // Update every 20 milliseconds
+  delay(50); // Update every 20 milliseconds
 }
