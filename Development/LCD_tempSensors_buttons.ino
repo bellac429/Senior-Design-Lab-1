@@ -58,64 +58,68 @@ void loop() {
   // Read button states (LOW = pressed, HIGH = released)
   bool currentButton1State = digitalRead(BUTTON1);
   bool currentButton2State = digitalRead(BUTTON2);
-
   // Check for button 1 press (falling edge)
   if (currentButton1State == LOW && lastButton1State == HIGH) {
     sensor1State = !sensor1State;  // Toggle state
     //delay(50);  // Simple debounce
   }
-
   // Check for button 2 press (falling edge)
   if (currentButton2State == LOW && lastButton2State == HIGH) {
     sensor2State = !sensor2State;  // Toggle state
     //delay(50);  // Simple debounce
   }
-
   // Update last button states
   lastButton1State = currentButton1State;
   lastButton2State = currentButton2State;
 
+
   // Update temperature display
   sensors.requestTemperatures();
-
-  if (numberOfDevices >= 2) {
-    //lcd.clear();
-    
-    // Sensor 1 display
-    lcd.setCursor(0, 0);
-    lcd.print("S1:");
-    if (sensor1State) {
-      float tempC1 = sensors.getTempCByIndex(0);
+  
+  // Sensor 1 display
+  lcd.setCursor(0, 0);
+  lcd.print("S1:");
+  if (sensor1State) {
+    float tempC1 = sensors.getTempCByIndex(0);
+    if (tempC1 == DEVICE_DISCONNECTED_C) {
+      lcd.print("Error Detected  ");
+    } else {
       lcd.print(tempC1, 1);
       lcd.print((char)223);
       lcd.print("C");
-    } else {
-      lcd.print("OFF    ");
     }
+    lcd.print(tempC1, 1);
+    lcd.print((char)223);
+    lcd.print("C");
+  } else {
+    lcd.print("OFF    ");
+  }
 
-    // Sensor 2 display
-    lcd.setCursor(0, 1);
-    lcd.print("S2:");
-    if (sensor2State) {
-      float tempC2 = sensors.getTempCByIndex(1);
+  // Sensor 2 display
+  lcd.setCursor(0, 1);
+  lcd.print("S2:");
+  if (sensor2State) {
+    float tempC2 = sensors.getTempCByIndex(1);
+    if (tempC2 == DEVICE_DISCONNECTED_C) {
+      lcd.print("Error Detected  ");
+    } else {
       lcd.print(tempC2, 1);
       lcd.print((char)223);
       lcd.print("C");
-    } else {
-      lcd.print("OFF    ");
     }
-
-    // Serial output for debugging
-    // Serial.print("Sensor 1: ");
-    // Serial.print(sensor1State ? String(sensors.getTempCByIndex(0)) : "OFF");
-    // Serial.print(" | Sensor 2: ");
-    // Serial.println(sensor2State ? String(sensors.getTempCByIndex(1)) : "OFF");
+    lcd.print(tempC2, 1);
+    lcd.print((char)223);
+    lcd.print("C");
   } else {
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Need 2 sensors!");
-    //Serial.println("Less than 2 temperature sensors detected.");
+    lcd.print("OFF    ");
   }
+
+  // Serial output for debugging
+  // Serial.print("Sensor 1: ");
+  // Serial.print(sensor1State ? String(sensors.getTempCByIndex(0)) : "OFF");
+  // Serial.print(" | Sensor 2: ");
+  // Serial.println(sensor2State ? String(sensors.getTempCByIndex(1)) : "OFF");
+
 
   delay(20); // Update every 20 milliseconds
 }
