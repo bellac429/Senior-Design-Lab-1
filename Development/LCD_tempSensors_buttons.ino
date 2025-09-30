@@ -123,11 +123,5 @@ void loop() {
     lcd.print("OFF    ");
   }
 
-  // Serial output for debugging
-  // Serial.print("Sensor 1: ");
-  // Serial.print(sensor1State ? String(sensors.getTempCByIndex(0)) : "OFF");
-  // Serial.print(" | Sensor 2: ");
-  // Serial.println(sensor2State ? String(sensors.getTempCByIndex(1)) : "OFF");
-
   delay(50); // Update X milliseconds
 }
