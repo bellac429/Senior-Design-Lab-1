@@ -25,6 +25,13 @@
         <div id="message-display">Waiting for messages...</div>
     </div>
 
+    <div>
+        <h3>Send Test Message:</h3>
+        <input type="text" id="test-message" placeholder="Enter message">
+        <button onclick="sendTestMessage()">Send</button>
+        <div id="send-status"></div>
+    </div>
+
     <script>
         function updateMessage() {
             fetch('/get-message')
@@ -33,6 +40,25 @@
                     document.getElementById('message-display').textContent = data.message;
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        function sendTestMessage() {
+            const msg = document.getElementById('test-message').value;
+            fetch('/receive-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: msg })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('send-status').textContent = data.status === 'success' ? 'Message sent!' : 'Error: ' + (data.message || 'Unknown error');
+                updateMessage();
+            })
+            .catch(error => {
+                document.getElementById('send-status').textContent = 'Error sending message.';
+            });
         }
 
         // Update message every 2 seconds

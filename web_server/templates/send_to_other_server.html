@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send JSON to Another Server</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #send-status {
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Send JSON Message to 172.20.10.2</h1>
+    <div>
+        <input type="text" id="json-message" placeholder='Enter message text'>
+        <button onclick="sendJsonMessage()">Send</button>
+        <div id="send-status"></div>
+    </div>
+
+    <script>
+        function sendJsonMessage() {
+            const msg = document.getElementById('json-message').value;
+            fetch('http://172.30.160.1:5000/receive-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: msg })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('send-status').textContent = data.status === 'success' ? 'Message sent!' : 'Error: ' + (data.message || 'Unknown error');
+            })
+            .catch(error => {
+                document.getElementById('send-status').textContent = 'Error sending message.';
+            });
+        }
+    </script>
+</body>
+</html>
