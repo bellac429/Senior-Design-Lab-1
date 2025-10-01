@@ -3,9 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask Web App</title>
+    <title>ESP32 Message Receiver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #message-display {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            min-height: 50px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <h1>ESP32 Message Receiver</h1>
+    <div>
+        <h3>Last Message Received:</h3>
+        <div id="message-display">Waiting for messages...</div>
+    </div>
+
+    <script>
+        function updateMessage() {
+            fetch('/get-message')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('message-display').textContent = data.message;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Update message every 2 seconds
+        setInterval(updateMessage, 2000);
+        // Initial update
+        updateMessage();
+    </script>
 </body>
 </html>
