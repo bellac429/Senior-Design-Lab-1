@@ -8,8 +8,10 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
+#include "FS.h"
+
 // ----------------- WiFi Setup -----------------
-const char* ssid = "Adrian's IPhone";      // WiFi network name
+const char* ssid = "ESPHotspot";      // WiFi network name
 const char* password = "Alvarez2006";  // WiFi password
 
 WiFiServer server(80); // Start a web server on port 80
@@ -20,8 +22,8 @@ const int output19 = 19;  // Pin 19
 
 String output18State = "off"; // track ON/OFF state
 String output19State = "off";
-String temp18State = "F";     // track unit (not really needed)
-String temp19State = "F";
+String probe1Unit = "F";     // track unit (not really needed)
+String probe2Unit = "F";
 
 // ----------------- Temperature Setup -----------------
 const int oneWireBus = 4; // pin where DS18B20 sensors are connected
@@ -76,6 +78,20 @@ void loop() {
     currentTime = millis();
     previousTime = currentTime;
     Serial.println("New Client.");
+
+    // Debug Statemnets
+    Serial.print("Probe 1: ");
+    Serial.print(tempsC[0]);
+    Serial.print(" °C / ");
+    Serial.print(tempsF[0]);
+    Serial.println(" °F");
+
+    Serial.print("Probe 2: ");
+    Serial.print(tempsC[1]);
+    Serial.print(" °C / ");
+    Serial.print(tempsF[1]);
+    Serial.println(" °F");
+
     String currentLine = "";
     String header = "";
 
@@ -108,11 +124,13 @@ void loop() {
           }
 
           // GPIO 18 control
-          else if (header.indexOf("GET /18/on") >= 0) {
+          if (header.indexOf("GET /18/on") >= 0) {
+            Serial.println("Probe 1 on");
             output18State = "on";
             digitalWrite(output18, HIGH);
             client.print("{\"status\":\"GPIO 18 ON\"}");
           } else if (header.indexOf("GET /18/off") >= 0) {
+            Serial.println("Probe 1 off");
             output18State = "off";
             digitalWrite(output18, LOW);
             client.print("{\"status\":\"GPIO 18 OFF\"}");
@@ -120,27 +138,33 @@ void loop() {
 
           // GPIO 19 control
           else if (header.indexOf("GET /19/on") >= 0) {
+            Serial.println("Probe 2 on");
             output19State = "on";
             digitalWrite(output19, HIGH);
             client.print("{\"status\":\"GPIO 19 ON\"}");
           } else if (header.indexOf("GET /19/off") >= 0) {
+            Serial.println("Probe 1 off");
             output19State = "off";
             digitalWrite(output19, LOW);
             client.print("{\"status\":\"GPIO 19 OFF\"}");
           }
 
           // Unit toggling (not strictly needed since /data sends both)
-          else if (header.indexOf("GET /18/C") >= 0) {
-            temp18State = "C";
+          if (header.indexOf("GET /18/C") >= 0) {
+            Serial.println("Probe 1 set to C");
+            probe1Unit = "C";
             client.print("{\"status\":\"18 C\"}");
           } else if (header.indexOf("GET /18/F") >= 0) {
-            temp18State = "F";
+            Serial.println("Probe 1 set to F");
+            probe1Unit = "F";
             client.print("{\"status\":\"18 F\"}");
           } else if (header.indexOf("GET /19/C") >= 0) {
-            temp19State = "C";
+            Serial.println("Probe 2 set to C");
+            probe2Unit = "C";
             client.print("{\"status\":\"19 C\"}");
           } else if (header.indexOf("GET /19/F") >= 0) {
-            temp19State = "F";
+            Serial.println("Probe 2 set to F");
+            probe2Unit = "F";
             client.print("{\"status\":\"19 F\"}");
           }
 
