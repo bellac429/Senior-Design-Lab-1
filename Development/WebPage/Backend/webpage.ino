@@ -105,6 +105,7 @@ void loop() {
           // ---- Always send response headers ----
           client.println("HTTP/1.1 200 OK");
           client.println("Content-type:application/json");
+          client.println("Access-Control-Allow-Origin: *");
           client.println("Connection: close");
           client.println();
 
