@@ -10,6 +10,7 @@ LiquidCrystal lcd(23, 32, 33, 25, 26, 27);
 #define ONE_WIRE_BUS 21  // DS18B20 data pin connected to GPIO 21
 #define BUTTON1 18      // Button for Sensor 1
 #define BUTTON2 19      // Button for Sensor 2
+#define ONOFFSWITCH 22 // On off switch
 
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
@@ -36,6 +37,8 @@ void setup() {
   // Initialize buttons with pull-up resistors
   pinMode(BUTTON1, INPUT_PULLUP);
   pinMode(BUTTON2, INPUT_PULLUP);
+  // On/off switch (use INPUT_PULLUP or INPUT depending on wiring)
+  pinMode(ONOFFSWITCH, INPUT_PULLUP);
 
   // Initialize Serial Monitor
   Serial.begin(115200);
@@ -68,6 +71,20 @@ void setup() {
 
 // =======================  Main loop =======================
 void loop() {
+  // Check on/off switch
+  bool switchState = digitalRead(ONOFFSWITCH);
+
+  if (switchState == HIGH) {
+    // Show "No data available"
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("No data");
+    lcd.setCursor(0, 1);
+    lcd.print("available");
+    delay(200);  // Small delay to avoid flicker
+    return;      // Skip the rest of loop
+  }
+
   // Read button states (LOW = pressed, HIGH = released)
   bool currentButton1State = digitalRead(BUTTON1);
   bool currentButton2State = digitalRead(BUTTON2);
