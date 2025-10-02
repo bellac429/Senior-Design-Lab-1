@@ -7,35 +7,35 @@
 var ESP32_IP = "http://172.20.10.12";
 
 // These variables remember if things are ON or OFF
-var gpio18On = false;  // false means OFF
-var gpio19On = false;  // false means OFF
+var isProbe1On = false;  // false means OFF
+var isProbe2On = false;  // false means OFF
 
 // These variables remember if we are showing Celsius or Fahrenheit
-var show18C = false;   // false means showing F by default
-var show19C = false;   // same here
+var isProbe1InCelsius = false;   // false means showing F by default
+var isProbe2InCelsius = false;   // same here
 
 // Get references to the HTML elements
 // Sets the IDs to a variable
-var probe1El = document.getElementById("probe1");      // text for probe 1 temp
-var probe2El = document.getElementById("probe2");      // text for probe 2 temp
-var btn18OFFON = document.getElementById("btn18OFFON"); // ON/OFF button for probe 1
-var btn19OFFON = document.getElementById("btn19OFFON"); // ON/OFF button for probe 2
+var probe1Display = document.getElementById("probe1Display");      // text for probe 1 temp
+var probe2Display = document.getElementById("probe2Display");      // text for probe 2 temp
+var probe1ToggleButton = document.getElementById("probe1ToggleButton"); // ON/OFF button for probe 1
+var probe2ToggleButton = document.getElementById("probe2ToggleButton"); // ON/OFF button for probe 2
 // This is the C/F button. It starts off by showing C because the starting unit is in F
-var btn18Temp = document.getElementById("btn18Temp");   // °F/°C button for probe 1
+var probe1UnitButton = document.getElementById("probe1UnitButton");   // °F/°C button for probe 1
 // Same thing here
-var btn19Temp = document.getElementById("btn19Temp");   // °F/°C button for probe 2
+var probe2UnitButton = document.getElementById("probe2UnitButton");   // °F/°C button for probe 2
 
 // const element = document.getElementById("id01");
 // element.innerHTML = "New Heading";
 
 // Store the last data we got from ESP32
-var lastData = null;
+var latestTemperatureData = null;
 
 // ===============================
-// Function: updateData
+// Function: fetchTemperatureData
 // Ask ESP32 for new temperature data
 // ===============================
-function updateData() {
+function fetchTemperatureData() {
     fetch(ESP32_IP + "/data")  // ask ESP32 at /data
         .then(function(response) {
             console.log("Turning reply into JSON");
@@ -44,21 +44,21 @@ function updateData() {
         .then(function(data) {
             console.log("Getting data");
             // Save it so we can use it later
-            lastData = data;
+            latestTemperatureData = data;
 
             // Update probe 1
-            if (show18C) {
-                //probe1El.innerHTML = "New Heading";
-                probe1El.innerHTML = data.probe1.C.toFixed(2) + " °C";
+            if (isProbe1InCelsius) {
+                //probe1Display.innerHTML = "New Heading";
+                probe1Display.innerHTML = data.probe1.C.toFixed(2) + " °C";
             } else {
-                probe1El.innerHTML = data.probe1.F.toFixed(2) + " °F";
+                probe1Display.innerHTML = data.probe1.F.toFixed(2) + " °F";
             }
 
             // Update probe 2
-            if (show19C) {
-                probe2El.innerHTML = data.probe2.C.toFixed(2) + " °C";
+            if (isProbe2InCelsius ) {
+                probe2Display.innerHTML = data.probe2.C.toFixed(2) + " °C";
             } else {
-                probe2El.innerHTML = data.probe2.F.toFixed(2) + " °F";
+                probe2Display.innerHTML = data.probe2.F.toFixed(2) + " °F";
             }
         })
         .catch(function(error) {
@@ -67,20 +67,20 @@ function updateData() {
 }
 
 // ===============================
-// Function: toggle18
+// Function: toggleProbe1Power
 // Turn GPIO 18 ON or OFF
 // ===============================
-function toggle18() {
+function toggleProbe1Power() {
     // Flip our memory of its state
-    gpio18On = !gpio18On;
+    isProbe1On =! isProbe1On;
 
     // Update button text
     // Shows the OFF option when the button is on
-    if (gpio18On) {
-        btn18OFFON.innerHTML = "OFF";
+    if (isProbe1On) {
+        probe1ToggleButton.innerHTML = "OFF";
     }
     else {
-        btn18OFFON.innerHTML = "ON";
+        probe1ToggleButton.innerHTML = "ON";
     }
 
     // ============================== ARDUINO BACKEND CODE =======================
@@ -99,30 +99,30 @@ function toggle18() {
 
     //         // Update button text
     //         if (gpio18On) {
-    //             btn18OFFON.innerHTML = "OFF";
+    //             probe1ToggleButton.innerHTML = "OFF";
     //         } else {
-    //             btn18OFFON.innerHTML = "ON";
+    //             probe1ToggleButton.innerHTML = "ON";
     //         }
     //     });
 }
 
 // ===============================
-// Function: toggle19
+// Function: toggleProbe2Power
 // Turn GPIO 19 ON or OFF
 // ===============================
-function toggle19() {
+function toggleProbe2Power() {
     // Flip our memory of its state
-    gpio19On = !gpio19On;
+    isProbe2On =! isProbe2On;
 
     // Update button text
     // Shows the OFF option when the button is on
-    if (gpio19On) {
+    if (isProbe2On) {
 
-        btn19OFFON.innerHTML = "OFF";
+        probe2ToggleButton.innerHTML = "OFF";
     }
     // Else shows the ON option
     else {
-        btn19OFFON.innerHTML = "ON";
+        probe2ToggleButton.innerHTML = "ON";
     }
 
 
@@ -140,79 +140,79 @@ function toggle19() {
 //             gpio19On = !gpio19On;
 
 //             if (gpio19On) {
-//                 btn19OFFON.innerHTML = "OFF";
+//                 probe2ToggleButton.innerHTML = "OFF";
 //             } else {
-//                 btn19OFFON.innerHTML = "ON";
+//                 probe2ToggleButton.innerHTML = "ON";
 //             }
 //         });
 }
 
 // ===============================
-// Function: toggle18Temp
+// Function: toggleProbe1Unit
 // Switch between F and C for probe 1
 // ===============================
-function toggle18Temp() {
-    // Check the button text and set show18C accordingly
-    if (btn18Temp.innerHTML === "C") {
+function toggleProbe1Unit() {
+    // Check the button text and set isProbe1InCelsius accordingly
+    if (probe1UnitButton.innerHTML === "C") {
         // This is a test statement
         // It switches the Unit from C to F when the F/C button is clicked
-        //probe1El.innerHTML = "9.00" + " °C";
+        //probe1Display.innerHTML = "9.00" + " °C";
 
-        show18C = false; // If currently "C", switch to "F"
-        btn18Temp.innerHTML = "F";
+        isProbe1InCelsius = false; // If currently "C", switch to "F"
+        probe1UnitButton.innerHTML = "F";
     }
     else {
         // This is a test statement
         // It switches the Unit from C to F when the F/C button is clicked
-        //probe1El.innerHTML = "48.20" + " °F";
+        //probe1Display.innerHTML = "48.20" + " °F";
 
-        show18C = true; // If currently "F", switch to "C"
-        btn18Temp.innerHTML = "C";
+        isProbe1InCelsius = true; // If currently "F", switch to "C"
+        probe1UnitButton.innerHTML = "C";
     }
 
     // ============================= ARDUINO BACKEND CODE =======================
     // // Update display right away using last data
     // if (lastData != null) {
     //     if (show18C) {
-    //         probe1El.innerHTML = lastData.probe1.C.toFixed(2) + " °C";
+    //         probe1Display.innerHTML = lastData.probe1.C.toFixed(2) + " °C";
     //     } else {
-    //         probe1El.innerHTML = lastData.probe1.F.toFixed(2) + " °F";
+    //         probe1Display.innerHTML = lastData.probe1.F.toFixed(2) + " °F";
     //     }
     // }
 }
 
 // ===============================
-// Function: toggle19Temp
+// Function: toggleProbe2Unit
 // Switch between F and C for probe 2
 // ===============================
-function toggle19Temp() {
+function toggleProbe2Unit() {
     // When temperature is showing in °C,
     // the button should show “F” (because clicking it will switch to Fahrenheit)
-    if (btn19Temp.innerHTML === "C") {
+    if (probe2UnitButton.innerHTML === "C") {
         // This is a test statement
         // It switches the Unit from C to F when the F/C button is clicked
-        //probe2El.innerHTML = "18.00" + " °C";
+        //probe2Display.innerHTML = "18.00" + " °C";
 
-        show19C = false; // If currently "C", switch to "F"
-        btn19Temp.innerHTML = "F";
+        isProbe2InCelsius = false; // If currently "C", switch to "F"
+        probe2UnitButton.innerHTML = "F";
     }
     // When temperature is showing in °F,
     // the button should show “C” (because clicking it will switch to Celsius).
     else {
         // This is a test statement
         // It switches the Unit from C to F when the F/C button is clicked
-        //probe2El.innerHTML = "64.40" + " °F";
+        //probe2Display.innerHTML = "64.40" + " °F";
 
-        show19C = true; // If currently "F", switch to "C"
-        btn19Temp.innerHTML = "C";
+        isProbe2InCelsius = true; // If currently "F", switch to "C"
+        probe2UnitButton.innerHTML = "C";
     }
 
     // ============================= ARDUINO BACKEND CODE =======================
     // if (lastData != null) {
     //     if (show19C) {
-    //         probe2El.innerHTML = lastData.probe2.C.toFixed(2) + " °C";
+    //         probe2Display.innerHTML = lastData.probe2.C.toFixed(2) + " °C";
     //     } else {
-    //         probe2El.innerHTML = lastData.probe2.F.toFixed(2) + " °F";
+    //         probe2Display.innerHTML = lastData.probe2.F.toFixed(2) + " °F";
     //     }
     // }
 }
@@ -220,15 +220,16 @@ function toggle19Temp() {
 // ===============================
 // Hook up the buttons to functions
 // ===============================
-btn18OFFON.addEventListener("click", toggle18);
-btn19OFFON.addEventListener("click", toggle19);
-btn18Temp.addEventListener("click", toggle18Temp);
-btn19Temp.addEventListener("click", toggle19Temp);
+probe1ToggleButton.addEventListener("click", toggleProbe1Power);
+probe2ToggleButton.addEventListener("click", toggleProbe2Power);
+probe1UnitButton.addEventListener("click", toggleProbe1Unit);
+probe2UnitButton.addEventListener("click", toggleProbe2Unit);
 
 // ===============================
-// Keep refreshing data every 2 sec
+// Keep refreshing data every 1 sec
 // ===============================
-setInterval(updateData, 1000);
+setInterval(fetchTemperatureData, 1000);
 
-// Run once at start
-updateData();
+// Is called immediately, run once at start
+// So as soon as the page is open
+fetchTemperatureData();
