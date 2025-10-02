@@ -22,8 +22,8 @@ DeviceAddress tempDeviceAddress;
 bool lastButton1State = HIGH;
 bool lastButton2State = HIGH;
 // Sensor State tracking
-bool sensor1State = true;  // true = ON, false = OFF
-bool sensor2State = true;  // true = ON, false = OFF
+bool sensor1State = false;  // true = ON, false = OFF
+bool sensor2State = false;  // true = ON, false = OFF
 bool lastSensor1State = true; // when system boots, sensoor is ON
 bool lastSensor2State = true;
 
