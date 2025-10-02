@@ -9,6 +9,7 @@ def home():
 
 @app.route('/receive-message', methods=['POST'])
 def receive_message():
+    print('recieved POST request')
     global last_message
     data = request.get_json()
     if data and 'message' in data:

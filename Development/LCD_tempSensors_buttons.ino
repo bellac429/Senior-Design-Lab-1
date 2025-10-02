@@ -4,10 +4,10 @@
 
 // ---------------- LCD Setup ----------------
 // RS, E, D4, D5, D6, D7
-LiquidCrystal lcd(14, 12, 27, 26, 25, 33);
+LiquidCrystal lcd(23, 32, 33, 25, 26, 27);
 
 // ---------------- Temperature Sensor Setup ----------------
-#define ONE_WIRE_BUS 4  // DS18B20 data pin connected to GPIO 4
+#define ONE_WIRE_BUS 21  // DS18B20 data pin connected to GPIO 21
 #define BUTTON1 18      // Button for Sensor 1
 #define BUTTON2 19      // Button for Sensor 2
 
