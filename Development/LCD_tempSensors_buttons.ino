@@ -82,6 +82,7 @@ void loop() {
     lcd.setCursor(0, 1);
     lcd.print("available");
     delay(200);  // Small delay to avoid flicker
+    lcd.clear();
     return;      // Skip the rest of loop
   }
 
@@ -110,6 +111,12 @@ void loop() {
 
   // Always update temperature if sensor 1 is ON
   if (sensor1State) {
+      // Sensor 1 display
+      lcd.setCursor(0, 0);
+      lcd.print("S1:");
+      // Sensor 2 display
+      lcd.setCursor(0, 1);
+      lcd.print("S2:");
     lcd.setCursor(4, 0); // Position for Sensor 1 reading
     float tempC1 = sensors.getTempCByIndex(0);
     if (tempC1 == DEVICE_DISCONNECTED_C) {
@@ -119,13 +126,26 @@ void loop() {
       lcd.print((char)223);
       lcd.print("C");
     }
-  } else if (lastSensor1State != sensor1State && !sensor1State) { // Only update display if state changed to OFF
+  } 
+  else if (lastSensor1State != sensor1State && !sensor1State) { // Only update display if state changed to OFF
+    // Sensor 1 display
+    lcd.setCursor(0, 0);
+    lcd.print("S1:");
+    // Sensor 2 display
+    lcd.setCursor(0, 1);
+    lcd.print("S2:");
     lcd.setCursor(4, 0); // Position for Sensor 1 reading
     lcd.print("OFF    ");
   }
 
   // Always update temperature if sensor 2 is ON
   if (sensor2State) {
+    // Sensor 1 display
+    lcd.setCursor(0, 0);
+    lcd.print("S1:");
+    // Sensor 2 display
+    lcd.setCursor(0, 1);
+    lcd.print("S2:");
     lcd.setCursor(4, 1); // Position for Sensor 2 reading
     float tempC2 = sensors.getTempCByIndex(1);
     if (tempC2 == DEVICE_DISCONNECTED_C) {
@@ -135,7 +155,14 @@ void loop() {
       lcd.print((char)223);
       lcd.print("C");
     }
-  } else if (lastSensor2State != sensor2State && !sensor2State) { // Only update display if state changed to OFF
+  } 
+  else if (lastSensor2State != sensor2State && !sensor2State) { // Only update display if state changed to OFF
+    // Sensor 1 display
+    lcd.setCursor(0, 0);
+    lcd.print("S1:");
+    // Sensor 2 display
+    lcd.setCursor(0, 1);
+    lcd.print("S2:");
     lcd.setCursor(4, 1); // Position for Sensor 2 reading
     lcd.print("OFF    ");
   }
