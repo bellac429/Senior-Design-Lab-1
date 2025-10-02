@@ -38,7 +38,7 @@ void setup() {
   pinMode(BUTTON1, INPUT_PULLUP);
   pinMode(BUTTON2, INPUT_PULLUP);
   // On/off switch (use INPUT_PULLUP or INPUT depending on wiring)
-  pinMode(ONOFFSWITCH, INPUT_PULLUP);
+  pinMode(ONOFFSWITCH, INPUT)
 
   // Initialize Serial Monitor
   Serial.begin(115200);
