@@ -15,22 +15,27 @@
 <div class="probe-container">
     <h2>Probe 1</h2>
     <!-- This is where Probe 1 temperature will show -->
-    <div id="probe1" class="temperature">--</div>
+    <!-- Probe 1 start's its unit in F -->
+    <div id="probe1Display" class="temperature">--</div>
     <!-- Button to control GPIO 18 -->
-    <button id="btn18OFFON">ON</button>
-    <!-- Button to control GPIO 19 -->
-    <button id="btn18Temp">C</button>
+    <!-- GPIO 18 start's low(OFF) -->
+    <button id="probe1ToggleButton">ON</button>
+    <!-- Button to control the temp unit of probe 1 -->
+    <button id="probe1UnitButton">C</button>
 </div>
 
 <!-- Box for Probe 2 -->
 <div class="probe-container">
     <h2>Probe 2</h2>
     <!-- This is where Probe 2 temperature will show -->
-    <div id="probe2" class="temperature">--</div>
+    <!-- Probe 2 start's its unit in F -->
+    <div id="probe2Display" class="temperature">--</div>
     <!-- Button to control GPIO 19 -->
-    <button id="btn19OFFON">ON</button>
-    <!-- Button to control GPIO 19 -->
-    <button id="btn19Temp">C</button>
+    <!-- Button to control GPIO 18 -->
+    <!-- GPIO 19 start's low(OFF) -->
+    <button id="probe2ToggleButton">ON</button>
+    <!-- Button to control the temp unit of probe 2 -->
+    <button id="probe2UnitButton">C</button>
 </div>
 
 <!-- Graph area (not very fancy for now) -->
