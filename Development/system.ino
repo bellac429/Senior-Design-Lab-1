@@ -41,6 +41,9 @@ unsigned long currentTime = millis();
 unsigned long previousTime = 0;
 const long timeoutTime = 1000; // 1 second timeout
 
+float tempsF[2] = {75.20, 80.00};  // Fahrenheit
+float tempsC[2] = {24, 26.67};  // Celsius
+
 // =======================  Setup =======================
 void setup() {
     // Initialize LCD
