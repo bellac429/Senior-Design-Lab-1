@@ -81,8 +81,8 @@ void setup() {
     WiFi.begin(ssid, password);
     Serial.print("Connecting to WiFi: ");
     while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+        delay(500);
+        Serial.print(".");
     }
     Serial.println("");
     Serial.println("WiFi connected.");
@@ -94,6 +94,12 @@ void setup() {
 
 // =======================  Main loop =======================
 void loop() {
+    WifiClient client = server.available();
+    if (client) {
+        Serial.println("New Client.");
+    }
+
+
   // Check on/off switch
   bool switchState = digitalRead(ONOFFSWITCH);
 
