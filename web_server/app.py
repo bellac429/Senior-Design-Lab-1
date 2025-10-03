@@ -1,14 +1,16 @@
 from flask import Flask
 from flask_mail import Mail, Message
+from flask_cors import CORS   # <-- import CORS
 
 app = Flask(__name__)
+CORS(app)  # <-- allow all origins (for dev)
 
 # ---------------- Email Config ----------------
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'piconrad22@gmail.com'
-app.config['MAIL_PASSWORD'] = 'untc fppx cprx ffsh'  # <-- use Gmail App Password
+app.config['MAIL_PASSWORD'] = 'untc fppx cprx ffsh'  # Gmail App Password
 app.config['MAIL_DEFAULT_SENDER'] = 'piconrad22@gmail.com'
 
 mail = Mail(app)
