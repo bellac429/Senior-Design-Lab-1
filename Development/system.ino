@@ -39,46 +39,57 @@ WiFiServer server(80); // Start a web server on port 80
 
 // =======================  Setup =======================
 void setup() {
-  // Initialize LCD
-  lcd.begin(16, 2);
-  lcd.print("Initializing...");
+    // Initialize LCD
+    lcd.begin(16, 2);
+    lcd.print("Initializing...");
 
-  // Initialize buttons with pull-up resistors
-  pinMode(BUTTON1, INPUT_PULLUP);
-  pinMode(BUTTON2, INPUT_PULLUP);
-  // On/off switch (use INPUT_PULLUP or INPUT depending on wiring)
-  pinMode(ONOFFSWITCH, INPUT)
+    // Initialize buttons with pull-up resistors
+    pinMode(BUTTON1, INPUT_PULLUP);
+    pinMode(BUTTON2, INPUT_PULLUP);
+    // On/off switch (use INPUT_PULLUP or INPUT depending on wiring)
+    pinMode(ONOFFSWITCH, INPUT)
 
-  // Initialize Serial Monitor
-  Serial.begin(115200);
-  Serial.println("Starting temperature sensors...");
+    // Initialize Serial Monitor
+    Serial.begin(115200);
+    Serial.println("Starting temperature sensors...");
 
-  // Start DallasTemperature library
-  sensors.begin();
+    // Start DallasTemperature library
+    sensors.begin();
 
-  // Count devices
-  numberOfDevices = sensors.getDeviceCount();
-  Serial.print("Found ");
-  Serial.print(numberOfDevices, DEC);
-  Serial.println(" devices.");
+    // Count devices
+    // numberOfDevices = sensors.getDeviceCount();
+    // Serial.print("Found ");
+    // Serial.print(numberOfDevices, DEC);
+    // Serial.println(" devices.");
 
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("Sensors found:");
-  lcd.setCursor(0, 1);
-  lcd.print(numberOfDevices);
-  delay(2000);
-  lcd.clear();
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Sensors found:");
+    lcd.setCursor(0, 1);
+    lcd.print(numberOfDevices);
+    delay(2000);
+    lcd.clear();
 
-  // Sensor 1 display
-  lcd.setCursor(0, 0);
-  lcd.print("S1:");
-  // Sensor 2 display
-  lcd.setCursor(0, 1);
-  lcd.print("S2:");
+    // Sensor 1 display
+    lcd.setCursor(0, 0);
+    lcd.print("S1:");
+    // Sensor 2 display
+    lcd.setCursor(0, 1);
+    lcd.print("S2:");
 
+    // Connect to Wi-Fi
+    WiFi.begin(ssid, password);
+    Serial.print("Connecting to WiFi: ");
+    while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+    }
+    Serial.println("");
+    Serial.println("WiFi connected.");
+    Serial.println("ESP32 IP address: ");
+    Serial.println(WiFi.localIP());
 
-
+    server.begin();
 }
 
 // =======================  Main loop =======================
