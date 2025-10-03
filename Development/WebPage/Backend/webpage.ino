@@ -30,8 +30,8 @@ const int oneWireBus = 4; // pin where DS18B20 sensors are connected
 OneWire oneWire(oneWireBus);
 DallasTemperature sensors(&oneWire);
 
-float tempsF[2];  // Fahrenheit
-float tempsC[2];  // Celsius
+float tempsF[2] = {75.20, 80.00};  // Fahrenheit
+float tempsC[2] = {24, 26.67};  // Celsius
 
 // ----------------- Timers -----------------
 unsigned long currentTime = millis();
@@ -68,11 +68,11 @@ void loop() {
   WiFiClient client = server.available();
 
   // update temperature readings
-  sensors.requestTemperatures();
-  for (int i = 0; i < 2; i++) {
-    tempsC[i] = sensors.getTempCByIndex(i);
-    tempsF[i] = sensors.getTempFByIndex(i);
-  }
+  // sensors.requestTemperatures();
+  // for (int i = 0; i < 2; i++) {
+  //   tempsC[i] = sensors.getTempCByIndex(i);
+  //   tempsF[i] = sensors.getTempFByIndex(i);
+  // }
 
   if (client) {
     currentTime = millis();
