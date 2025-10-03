@@ -36,6 +36,10 @@ const char* password = "burrito2";  // WiFi password
 
 WiFiServer server(80); // Start a web server on port 80
 
+// ----------------- Timers -----------------
+unsigned long currentTime = millis();
+unsigned long previousTime = 0;
+const long timeoutTime = 1000; // 1 second timeout
 
 // =======================  Setup =======================
 void setup() {
