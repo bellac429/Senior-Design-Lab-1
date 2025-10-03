@@ -62,13 +62,6 @@ void setup() {
     // Start DallasTemperature library
     sensors.begin();
 
-    // // Sensor 1 display
-    // lcd.setCursor(0, 0);
-    // lcd.print("S1:");
-    // // Sensor 2 display
-    // lcd.setCursor(0, 1);
-    // lcd.print("S2:");
-
     // Connect to Wi-Fi
     // WiFi.begin(ssid, password);
     // Serial.print("Connecting to WiFi: ");
