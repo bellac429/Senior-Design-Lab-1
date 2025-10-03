@@ -48,7 +48,6 @@ float tempsC[2] = {24, 26.67};  // Celsius
 void setup() {
     // Initialize LCD
     lcd.begin(16, 2);
-    lcd.print("Initializing...");
 
     // Initialize buttons with pull-up resistors
     pinMode(BUTTON1, INPUT_PULLUP);
@@ -63,40 +62,26 @@ void setup() {
     // Start DallasTemperature library
     sensors.begin();
 
-    // Count devices
-    // numberOfDevices = sensors.getDeviceCount();
-    // Serial.print("Found ");
-    // Serial.print(numberOfDevices, DEC);
-    // Serial.println(" devices.");
-
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Sensors found:");
-    lcd.setCursor(0, 1);
-    lcd.print(numberOfDevices);
-    delay(2000);
-    lcd.clear();
-
-    // Sensor 1 display
-    lcd.setCursor(0, 0);
-    lcd.print("S1:");
-    // Sensor 2 display
-    lcd.setCursor(0, 1);
-    lcd.print("S2:");
+    // // Sensor 1 display
+    // lcd.setCursor(0, 0);
+    // lcd.print("S1:");
+    // // Sensor 2 display
+    // lcd.setCursor(0, 1);
+    // lcd.print("S2:");
 
     // Connect to Wi-Fi
-    WiFi.begin(ssid, password);
-    Serial.print("Connecting to WiFi: ");
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("");
-    Serial.println("WiFi connected.");
-    Serial.println("ESP32 IP address: ");
-    Serial.println(WiFi.localIP());
+    // WiFi.begin(ssid, password);
+    // Serial.print("Connecting to WiFi: ");
+    // while (WiFi.status() != WL_CONNECTED) {
+    //     delay(500);
+    //     Serial.print(".");
+    // }
+    // Serial.println("");
+    // Serial.println("WiFi connected.");
+    // Serial.println("ESP32 IP address: ");
+    // Serial.println(WiFi.localIP());
 
-    server.begin();
+    // server.begin();
 }
 
 // =======================  Main loop =======================
@@ -113,12 +98,13 @@ void loop() {
     lcd.setCursor(0, 1);
     lcd.print("available");
     delay(200);
+    lcd.clear();
 
     // Disable server response
-    if (client) {
-      client.stop(); 
-      Serial.println("Client disconnected.");
-    }
+    // if (client) {
+    //   client.stop(); 
+    //   Serial.println("Client disconnected.");
+    // }
     return;     
   }
 
