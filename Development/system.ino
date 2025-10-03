@@ -1,6 +1,9 @@
 #include <LiquidCrystal.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <WiFi.h>
+
+#include "FS.h"
 
 // ---------------- LCD Setup ----------------
 // RS, E, D4, D5, D6, D7
@@ -26,6 +29,12 @@ bool sensor1State = false;  // true = ON, false = OFF
 bool sensor2State = false;  // true = ON, false = OFF
 bool lastSensor1State = true; // when system boots, sensoor is ON
 bool lastSensor2State = true;
+
+// ----------------- WiFi Setup -----------------
+const char* ssid = "iPhone";      // WiFi network name
+const char* password = "burrito2";  // WiFi password
+
+WiFiServer server(80); // Start a web server on port 80
 
 
 // =======================  Setup =======================
