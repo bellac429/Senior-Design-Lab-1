@@ -1,28 +1,27 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
-last_message = "No message received yet"
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# ---------------- Email Config ----------------
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'piconrad22@gmail.com'
+app.config['MAIL_PASSWORD'] = 'untc fppx cprx ffsh'  # <-- use Gmail App Password
+app.config['MAIL_DEFAULT_SENDER'] = 'piconrad22@gmail.com'
 
-@app.route('/receive-message', methods=['POST'])
-def receive_message():
-    print('recieved POST request')
-    global last_message
-    data = request.get_json()
-    if data and 'message' in data:
-        last_message = data['message']
-        return jsonify({"status": "success"})
-    return jsonify({"status": "error", "message": "Invalid data format"})
+mail = Mail(app)
 
-@app.route('/get-message')
-def get_message():
-    return jsonify({"message": last_message})
+@app.route('/send-email')
+def send_email():
+    try:
+        msg = Message("Hello World!", recipients=["piconrad22@gmail.com"])
+        msg.body = "Hello world! This is a test email sent from Flask."
+        mail.send(msg)
+        return {"status": "Email sent successfully!"}
+    except Exception as e:
+        return {"status": "Failed", "error": str(e)}
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
-
-
-
+    app.run(host='0.0.0.0', port=5000)
