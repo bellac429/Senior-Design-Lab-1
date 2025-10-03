@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <title>ESP32 Temperature Monitor</title>
     <link rel="stylesheet" href="webapp.css">
+
+    <!-- Load Chart.js v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Load chartjs-plugin-streaming for v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0/dist/chartjs-plugin-streaming.umd.min.js"></script>
 </head>
 <body>
 
@@ -39,8 +45,9 @@
 </div>
 
 <!-- Graph area (not very fancy for now) -->
-<div class="graph-placeholder">
-    <p>Graph will go here (future upgrade)</p>
+<div class="graph-container">
+    <h2>Live Temperature Graph</h2>
+    <canvas id="temperatureChart"></canvas>
 </div>
 
 <!-- Link to the JavaScript file -->
