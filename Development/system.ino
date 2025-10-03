@@ -1,3 +1,5 @@
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 #include <LiquidCrystal.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -31,8 +33,8 @@ bool lastSensor1State = true; // when system boots, sensoor is ON
 bool lastSensor2State = true;
 
 // ----------------- WiFi Setup -----------------
-const char* ssid = "iPhone";      // WiFi network name
-const char* password = "burrito2";  // WiFi password
+const char* ssid = "ESPHotspot";      // WiFi network name
+const char* password = "Alvarez2006";  // WiFi password
 
 WiFiServer server(80); // Start a web server on port 80
 
@@ -46,6 +48,7 @@ float tempsC[2] = {24, 26.67};  // Celsius
 
 // =======================  Setup =======================
 void setup() {
+    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable brownout detector
     // Initialize LCD
     lcd.begin(16, 2);
 
@@ -55,26 +58,21 @@ void setup() {
     // On/off switch (use INPUT_PULLUP or INPUT depending on wiring)
     pinMode(ONOFFSWITCH, INPUT);
 
-    // Initialize Serial Monitor
-    Serial.begin(115200);
-    Serial.println("Starting temperature sensors...");
-
     // Start DallasTemperature library
     sensors.begin();
 
     // Connect to Wi-Fi
-    // WiFi.begin(ssid, password);
+    WiFi.begin(ssid, password);
     // Serial.print("Connecting to WiFi: ");
-    // while (WiFi.status() != WL_CONNECTED) {
-    //     delay(500);
-    //     Serial.print(".");
-    // }
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+    }
     // Serial.println("");
     // Serial.println("WiFi connected.");
     // Serial.println("ESP32 IP address: ");
     // Serial.println(WiFi.localIP());
 
-    // server.begin();
+    server.begin();
 }
 
 // =======================  Main loop =======================
@@ -187,66 +185,82 @@ void loop() {
 
 
   // ----- Webpage backend logic -----
-//   if (client) {
-//     Serial.println("New Client.");
-//     String header = "";
-//     unsigned long currentTime = millis();
-//     unsigned long previousTime = currentTime;
-//     const long timeoutTime = 2000;
+  if (client) {
+    // Serial.println("New Client.");
+    String header = "";
+    unsigned long currentTime = millis();
+    unsigned long previousTime = currentTime;
+    const long timeoutTime = 2000;
 
-//     while (client.connected() && currentTime - previousTime <= timeoutTime) {
-//       currentTime = millis();
-//       if (client.available()) {
-//         char c = client.read();
-//         header += c;
-//         if (c == '\n') {
-//           // ---- Always send headers ----
-//           client.println("HTTP/1.1 200 OK");
-//           client.println("Content-type:application/json");
-//           client.println("Access-Control-Allow-Origin: *");
-//           client.println("Connection: close");
-//           client.println();
+    while (client.connected() && currentTime - previousTime <= timeoutTime) {
+      currentTime = millis();
+      if (client.available()) {
+        char c = client.read();
+        header += c;
+        if (c == '\n') {
+          // ---- Always send headers ----
+          client.println("HTTP/1.1 200 OK");
+          client.println("Content-type:application/json");
+          client.println("Access-Control-Allow-Origin: *");
+          client.println("Connection: close");
+          client.println();
 
-//           // ---- Routes ----
-//           if (header.indexOf("GET /data") >= 0) {
-//             client.print("{\"probe1\": {\"C\": ");
-//             client.print(tempsC[0]);
-//             client.print(", \"F\": ");
-//             client.print(tempsF[0]);
-//             client.print("}, \"probe2\": {\"C\": ");
-//             client.print(tempsC[1]);
-//             client.print(", \"F\": ");
-//             client.print(tempsF[1]);
-//             client.print("}}");
-//           }
+          // ---- Routes ----
+          if (header.indexOf("GET /data") >= 0) {
+            client.print("{\"probe1\": {\"C\": ");
+            client.print(tempsC[0]);
+            client.print(", \"F\": ");
+            client.print(tempsF[0]);
+            client.print("}, \"probe2\": {\"C\": ");
+            client.print(tempsC[1]);
+            client.print(", \"F\": ");
+            client.print(tempsF[1]);
+            client.print("}}");
+          }
 
-//           else if (header.indexOf("GET /18/on") >= 0) {
-//             output18State = "on";
-//             digitalWrite(output18, HIGH);
-//             client.print("{\"status\":\"GPIO 18 ON\"}");
-//           } else if (header.indexOf("GET /18/off") >= 0) {
-//             output18State = "off";
-//             digitalWrite(output18, LOW);
-//             client.print("{\"status\":\"GPIO 18 OFF\"}");
-//           }
+          else if (header.indexOf("GET /18/on") >= 0) {
+            // output18State = "on";
+            // digitalWrite(output18, HIGH);
+            client.print("{\"status\":\"GPIO 18 ON\"}");
+          } else if (header.indexOf("GET /18/off") >= 0) {
+            // output18State = "off";
+            // digitalWrite(output18, LOW);
+                // Sensor 1 display
+            lcd.setCursor(0, 0);
+            lcd.print("S1:");
+            // Sensor 2 display
+            lcd.setCursor(0, 1);
+            lcd.print("S2:");
+            lcd.setCursor(4, 0); // Position for Sensor 1 reading
+            lcd.print("OFF    ");
+            client.print("{\"status\":\"GPIO 18 OFF\"}");
+          }
 
-//           else if (header.indexOf("GET /19/on") >= 0) {
-//             output19State = "on";
-//             digitalWrite(output19, HIGH);
-//             client.print("{\"status\":\"GPIO 19 ON\"}");
-//           } else if (header.indexOf("GET /19/off") >= 0) {
-//             output19State = "off";
-//             digitalWrite(output19, LOW);
-//             client.print("{\"status\":\"GPIO 19 OFF\"}");
-//           }
+          else if (header.indexOf("GET /19/on") >= 0) {
+            // output19State = "on";
+            // digitalWrite(output19, HIGH);
+            client.print("{\"status\":\"GPIO 19 ON\"}");
+          } else if (header.indexOf("GET /19/off") >= 0) {
+            // output19State = "off";
+            // digitalWrite(output19, LOW);
+                // Sensor 1 display
+            lcd.setCursor(0, 0);
+            lcd.print("S1:");
+            // Sensor 2 display
+            lcd.setCursor(0, 1);
+            lcd.print("S2:");
+            lcd.setCursor(4, 1); // Position for Sensor 2 reading
+            lcd.print("OFF    ");
+            client.print("{\"status\":\"GPIO 19 OFF\"}");
+          }
 
-//           break;
-//         }
-//       }
-//     }
-//     client.stop();
-//     Serial.println("Client disconnected.");
-//   }
+          break;
+        }
+      }
+    }
+    client.stop();
+    // Serial.println("Client disconnected.");
+  }
 
   delay(50);
 }
