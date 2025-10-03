@@ -2,9 +2,9 @@
 
 /* General page style */
 body {
-    font-family: Arial, sans-serif; /* use a simple font */
-    text-align: center; /* center all text */
-    margin: 0;  /* remove default spacing around page */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
     padding: 0;
 }
 
@@ -15,12 +15,12 @@ h1 {
 
 /* Each probe (box around it) */
 .probe-container {
-    display: inline-block; /* so Probe 1 and 2 sit side by side */
-    width: 40%; /* take up about half the page */
+    display: inline-block;
+    width: 40%;
     margin: 10px;
     padding: 15px;
-    border: 1px solid black; /* simple black border */
-    border-radius: 8px; /* rounded corners */
+    border: 1px solid black;
+    border-radius: 8px;
 }
 
 /* The temperature text */
@@ -34,12 +34,24 @@ button {
     padding: 10px 20px;
     font-size: 18px;
     margin: 5px;
-    cursor: pointer; /* mouse becomes a hand */
+    cursor: pointer;
 }
 
-/* Placeholder for graph */
-.graph-placeholder {
-    margin-top: 30px;
-    border: 2px dashed gray;
+/* Graph container */
+.graph-container {
+    margin: 40px auto;
     padding: 20px;
+    max-width: 850px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Graph canvas */
+canvas {
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    display: block;
+    margin: 20px auto;
 }
