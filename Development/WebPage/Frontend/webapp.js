@@ -1,5 +1,5 @@
-// The IP address of your ESP32 (change to match your device)
-var ESP32_IP = "http://172.20.10.12";
+// The IP address of the ESP32
+var ESP32_IP = "http://172.20.10.11";
 
 // These variables remember if things are ON or OFF
 var isProbe1On = false;  // false means OFF
@@ -11,27 +11,22 @@ var isProbe2InCelsius = false;   // same here
 
 // Get references to the HTML elements
 // Sets the IDs to a variable
-var probe1Display = document.getElementById("probe1Display");      // text for probe 1 temp
-var probe2Display = document.getElementById("probe2Display");      // text for probe 2 temp
+var probe1Display = document.getElementById("probe1Display"); // text for probe 1 temp
+var probe2Display = document.getElementById("probe2Display"); // text for probe 2 temp
 var probe1ToggleButton = document.getElementById("probe1ToggleButton"); // ON/OFF button for probe 1
 var probe2ToggleButton = document.getElementById("probe2ToggleButton"); // ON/OFF button for probe 2
 // This is the C/F button. It starts off by showing C because the starting unit is in F
-var probe1UnitButton = document.getElementById("probe1UnitButton");   // °F/°C button for probe 1
+var probe1UnitButton = document.getElementById("probe1UnitButton"); // °F/°C button for probe 1
 // Same thing here
-var probe2UnitButton = document.getElementById("probe2UnitButton");   // °F/°C button for probe 2
-
-// const element = document.getElementById("id01");
-// element.innerHTML = "New Heading";
-
+var probe2UnitButton = document.getElementById("probe2UnitButton"); // °F/°C button for probe 2
 // Store the last data we got from ESP32
 var latestTemperatureData = null;
 
-// ===============================
-// Function: fetchTemperatureData
+// -----------------------------------
 // Ask ESP32 for new temperature data
-// ===============================
+// -----------------------------------
 function fetchTemperatureData() {
-    fetch(ESP32_IP + "/data")  // ask ESP32 at /data
+    fetch(ESP32_IP + "/data") // ask ESP32 at /data
         .then(function(response) {
             console.log("Turning reply into JSON");
             return response.json(); // turn reply into JSON
@@ -63,10 +58,9 @@ function fetchTemperatureData() {
         });
 }
 
-// ===============================
-// Function: toggleProbe1Power
+// -----------------------------------
 // Turn GPIO 18 ON or OFF
-// ===============================
+// -----------------------------------
 function toggleProbe1Power() {
     // Decide what action to send to ESP32
     var action = isProbe1On ? "off" : "on";
@@ -88,10 +82,9 @@ function toggleProbe1Power() {
         });
 }
 
-// ===============================
-// Function: toggleProbe2Power
+// -----------------------------------
 // Turn GPIO 19 ON or OFF
-// ===============================
+// -----------------------------------
 function toggleProbe2Power() {
     var action = isProbe2On ? "off" : "on";
 
@@ -107,10 +100,9 @@ function toggleProbe2Power() {
 }
 
 
-// ===============================
-// Function: toggleProbe1Unit
+// -----------------------------------
 // Switch between F and C for probe 1
-// ===============================
+// -----------------------------------
 function toggleProbe1Unit() {
     // Flip the unit state
     isProbe1InCelsius = !isProbe1InCelsius;
@@ -122,10 +114,9 @@ function toggleProbe1Unit() {
     fetchTemperatureData();
 }
 
-// ===============================
-// Function: toggleProbe2Unit
+// -----------------------------------
 // Switch between F and C for probe 2
-// ===============================
+// -----------------------------------
 function toggleProbe2Unit() {
     // Flip the unit state
     isProbe2InCelsius = !isProbe2InCelsius;
@@ -135,26 +126,26 @@ function toggleProbe2Unit() {
     fetchTemperatureData();
 }
 
-// ===============================
+// -----------------------------------
 // Hook up the buttons to functions
-// ===============================
+// -----------------------------------
 probe1ToggleButton.addEventListener("click", toggleProbe1Power);
 probe2ToggleButton.addEventListener("click", toggleProbe2Power);
 probe1UnitButton.addEventListener("click", toggleProbe1Unit);
 probe2UnitButton.addEventListener("click", toggleProbe2Unit);
 
-// ===============================
-// Keep refreshing data every 1 sec
-// ===============================
+// -----------------------------------
+// Keep refreshing data every 0.5 sec
+// -----------------------------------
 setInterval(fetchTemperatureData, 500);
 
 // Is called immediately, run once at start
 // So as soon as the page is open
 fetchTemperatureData();
 
-// ===============================
-// Two-Probe Graph (Fixed Y-Axis + 300s Time Window + Missing Data)
-// ===============================
+// -----------------------------------
+// Two-Probe Graph
+// -----------------------------------
 const ctx = document.getElementById("temperatureChart").getContext("2d");
 
 // Store timestamps & values
@@ -202,7 +193,9 @@ const temperatureChart = new Chart(ctx, {
     }
 });
 
-// Update chart with probe1 & probe2 values every 2s
+// -----------------------------------------------------
+// Update chart with probe1 & probe2 values every second
+// -----------------------------------------------------
 async function updateChart() {
     const now = Date.now();
     let probe1Value = null;
@@ -272,4 +265,7 @@ async function updateChart() {
     temperatureChart.update();
 }
 
+// -----------------------------------
+// Keep refreshing data every second
+// -----------------------------------
 setInterval(updateChart, 1000);
