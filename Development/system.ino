@@ -1,10 +1,10 @@
+// Libraries
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
 #include <LiquidCrystal.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <WiFi.h>
-
 #include "FS.h"
 
 // ---------------- LCD Setup ----------------
@@ -12,9 +12,9 @@
 LiquidCrystal lcd(23, 32, 33, 25, 26, 27);
 
 // ---------------- Temperature Sensor Setup ----------------
-#define ONE_WIRE_BUS 21  // DS18B20 data pin connected to GPIO 21
-#define BUTTON1 18      // Button for Sensor 1
-#define BUTTON2 19      // Button for Sensor 2
+#define ONE_WIRE_BUS 21 // DS18B20 data pin connected to GPIO 21
+#define BUTTON1 18 // Button for Sensor 1
+#define BUTTON2 19 // Button for Sensor 2
 #define ONOFFSWITCH 22 // On off switch
 
 OneWire oneWire(ONE_WIRE_BUS);
@@ -27,14 +27,14 @@ DeviceAddress tempDeviceAddress;
 bool lastButton1State = HIGH;
 bool lastButton2State = HIGH;
 // Sensor State tracking
-bool sensor1State = false;  // true = ON, false = OFF
-bool sensor2State = false;  // true = ON, false = OFF
-bool lastSensor1State = true; // when system boots, sensoor is ON
+bool sensor1State = false; // true = ON, false = OFF
+bool sensor2State = false; // true = ON, false = OFF
+bool lastSensor1State = true; // When system boots, sensoor is ON
 bool lastSensor2State = true;
 
 // ----------------- WiFi Setup -----------------
-const char* ssid = "ESPHotspot";      // WiFi network name
-const char* password = "Alvarez2006";  // WiFi password
+const char* ssid = "ESPHotspot"; // WiFi network name
+const char* password = "Alvarez2006"; // WiFi password
 
 WiFiServer server(80); // Start a web server on port 80
 
@@ -43,12 +43,12 @@ unsigned long currentTime = millis();
 unsigned long previousTime = 0;
 const long timeoutTime = 1000; // 1 second timeout
 
-float tempsF[2] = {75.20, 80.00};  // Fahrenheit
-float tempsC[2] = {24, 26.67};  // Celsius
+float tempsF[2] = {75.20, 80.00}; // Fahrenheit
+float tempsC[2] = {24, 26.67}; // Celsius
 
 // =======================  Setup =======================
 void setup() {
-    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable brownout detector
+    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); // Disable brownout detector
     // Initialize LCD
     lcd.begin(16, 2);
 
@@ -67,6 +67,8 @@ void setup() {
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
     }
+
+    // Debuggin print statements
     // Serial.println("");
     // Serial.println("WiFi connected.");
     // Serial.println("ESP32 IP address: ");
@@ -77,7 +79,7 @@ void setup() {
 
 // =======================  Main loop =======================
 void loop() {
-  WiFiClient client = server.available();   // Check for incoming client
+  WiFiClient client = server.available(); // Check for incoming client
 
   // Check ON/OFF switch
   bool switchState = digitalRead(ONOFFSWITCH);
@@ -91,6 +93,7 @@ void loop() {
     delay(200);
     lcd.clear();
 
+    // Debugging statements
     // Disable server response
     // if (client) {
     //   client.stop(); 
